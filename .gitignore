@@ -1,0 +1,3 @@
+seq_gather/pdb_files/*
+seq_gather/qual_pfam/*
+seq_gather/resources/*
