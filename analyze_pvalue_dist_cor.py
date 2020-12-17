@@ -77,12 +77,13 @@ def analyze_p_dist(pfam_family_id, vector_cor_w_dist_loc, group_similar_aas):
 	#plt.colorbar()
 	ax.set_xlabel("P-Value")
 	ax.set_ylabel("Distance (Angstroms)")
-	ax.set_zlabel("Vector Distance (aas)")
+	ax.set_zlabel("Vector Length (aas)")
 	ax.set_title("Gaussian KDE Fit to " + pfam_family_id + " P-Value/Distance Data" + \
 							"\n" + "KDE Values Above " + str(kde_fract_min) + " of KDE Max" + "\n" + \
 							"Amino Acids Grouped? " + str(group_similar_aas))
 
-	plt.savefig(out_image, bbox_inches='tight')
+	#plt.savefig(out_image, bbox_inches='tight')
+	plt.savefig(out_image)
 	plt.close()
 
 	return

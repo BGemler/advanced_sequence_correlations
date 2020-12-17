@@ -89,11 +89,11 @@ def write_out_vectors(pfam_family_id, vector_writeout_loc, symbol_edge_tracking,
 	Symbols and positions for the beginning and end of each vector are written out
 	"""
 	if group_similar_aas == False:
-		vector_writeout_loc = vector_writeout_loc + pfam_family_id + "-vector_params_aa.csv"
+		out_loc = vector_writeout_loc + pfam_family_id + "-vector_params_aa.csv"
 	elif group_similar_aas == True:
-		vector_writeout_loc = vector_writeout_loc + pfam_family_id + "-vector_params_groups.csv"
+		out_loc = vector_writeout_loc + pfam_family_id + "-vector_params_groups.csv"
 
-	with open(vector_writeout_loc, "w") as f:
+	with open(out_loc, "w", newline='') as f:
 		out = csv.writer(f)
 		out.writerow(["Starting Position on Sequence", "Starting Symbol", \
 									"Ending Position on Sequence", "Ending Symbol", \
@@ -105,3 +105,31 @@ def write_out_vectors(pfam_family_id, vector_writeout_loc, symbol_edge_tracking,
 
 			out.writerow([position_initial, initial_symbol, position_final, final_symbol, pvalue])
 	f.close()
+
+	return
+
+def write_out_multi_vectors(pfam_family_id, multi_vector_writeout_loc, multi_symbol_edge_tracking, num_combos, group_similar_aas, \
+																sequences, minimum_count_fract):
+	"""
+	"""
+	if group_similar_aas == False:
+		out_loc = multi_vector_writeout_loc + pfam_family_id + "-multi_" + str(num_combos) + "-aa.csv"
+	elif group_similar_aas == True:
+		out_loc = multi_vector_writeout_loc + pfam_family_id + "-multi_" + str(num_combos) + "-groups.csv"
+
+	num_seqs = len(sequences)
+
+	with open(out_loc, "w", newline='') as f:
+		out = csv.writer(f)
+		out.writerow(["Start Vector Position Begin", "Start Sequence String", \
+										"Number of Sequences w/ Start Sequence at Start Vector", \
+										"End Vector Position Begin", "End Sequence String", \
+										"P-Value of Vector"])
+
+		for position_i, seq_por_i, count_i, position_j, seq_por_j, _, pvalue in multi_symbol_edge_tracking:
+			#if count_i >= int(num_seqs * minimum_count_fract):
+			if len(seq_por_i.replace(".","")) > 0.5 * len(seq_por_i) and len(seq_por_j.replace(".","")) > 0.5 * len(seq_por_j):
+				out.writerow([position_i, seq_por_i, count_i, position_j, seq_por_j, pvalue])
+	f.close()
+
+	return
