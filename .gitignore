@@ -3,7 +3,6 @@ seq_gather/qual_pfam/*
 seq_gather/resources/*
 __pycache__/**
 results/multi_vector_results/bulk_csvs/*
-results/multi_vector_results/*.tsv
 results/vector_cor_wdist/*.csv
 results/vector_cor_wdist/*.png
 results/vector_results/*.csv
