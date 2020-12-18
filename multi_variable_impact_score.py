@@ -1,4 +1,5 @@
 import csv
+import matplotlib.pyplot as plt
 
 
 def eval_impact_score(count_i, num_seqs, pvalue, l, l_max, l_min, pvalue_max, pvalue_min):
@@ -37,6 +38,24 @@ def calc_max_min_pvalue(num_combinations, group_similar_aas, multi_vector_writeo
 	return pvalue_max, pvalue_min
 
 
+def gen_bw_plotpot(impact_vector_all, img_out_loc, pfam_family_id, group_similar_aas):
+	"""
+	"""
+	impact_values = []
+	for impact_score, position_i, seq_por_i, count_i, position_j, seq_por_j, pvalue in impact_vector_all:
+		impact_values.append(impact_score)
+
+	plt.boxplot(impact_values, whis = (5, 95))
+	plt.ylabel("Impact Values")
+	plt.xticks([])
+	plt.title("Box & Whisker Plot: PFAM ID: " + pfam_family_id + "\n" + \
+							"Grouped AAs?" + str(group_similar_aas))
+	plt.savefig(img_out_loc)
+	plt.close()
+
+	return
+
+
 def calc_impact_score(pfam_family_id, multi_vector_writeout_loc, group_similar_aas, sequences, \
 												num_combinations, impact_vector_loc):
 	"""
@@ -69,8 +88,10 @@ def calc_impact_score(pfam_family_id, multi_vector_writeout_loc, group_similar_a
 
 	if group_similar_aas == False:
 		out_loc = impact_vector_loc + pfam_family_id + "impact_scores-aa.tsv"
+		img_out_loc = impact_vector_loc + pfam_family_id + "-bw_plot-aa.png"
 	elif group_similar_aas == True:
 		out_loc = impact_vector_loc + pfam_family_id + "impact_scores-groups.tsv"
+		img_out_loc = impact_vector_loc + pfam_family_id + "-bw_plot-groups.png"
 
 	with open(out_loc, "w") as f:
 		f.write("Impact Score\tStart Vector Position Begin\tStart Sequence String\tNumber of Sequences w/ Start Sequence at Start Vector" + \
@@ -81,4 +102,7 @@ def calc_impact_score(pfam_family_id, multi_vector_writeout_loc, group_similar_a
 								str(position_j) + "\t" + seq_por_j + "\t" + str(pvalue) + "\n")
 	f.close()
 
+	gen_bw_plotpot(impact_vector_all, img_out_loc, pfam_family_id, group_similar_aas)
+
 	return
+

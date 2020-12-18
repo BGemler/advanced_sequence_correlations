@@ -36,12 +36,13 @@ def master_pipeline(group_similar_aas):
 	if execute_multi_corr == True:
 		for num_combos in num_combinations:
 			print("generating multi-component sequence analysis for # of AAs:", num_combos)
-			multi_symbol_edge_tracking = multipoint_vectors(sequences, unique_symbols, position_symbol_distribution, pvalue_calc_type, num_combos)
-			write_out_multi_vectors(pfam_family_id, multi_vector_writeout_loc, multi_symbol_edge_tracking, num_combos, group_similar_aas, \
-																sequences, minimum_count_fract)
+			#multi_symbol_edge_tracking = multipoint_vectors(sequences, unique_symbols, position_symbol_distribution, pvalue_calc_type, num_combos)
+			#write_out_multi_vectors(pfam_family_id, multi_vector_writeout_loc, multi_symbol_edge_tracking, num_combos, group_similar_aas, \
+			#													sequences, minimum_count_fract)
 
 		calc_impact_score(pfam_family_id, multi_vector_writeout_loc, group_similar_aas, sequences, \
 												num_combinations, impact_vector_loc)
+		
 
 
 	if generate_plots == True:
