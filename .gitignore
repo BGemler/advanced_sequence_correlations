@@ -2,10 +2,7 @@ seq_gather/pdb_files/*
 seq_gather/qual_pfam/*
 seq_gather/resources/*
 __pycache__/**
-results/multi_vector_results/old_no_count_thresh/
-results/multi_vector_results/old_no_count_thresh/*
 results/multi_vector_results/bulk_csvs/*
-results/multi_vector_results/*.png
 results/multi_vector_results/*.tsv
 results/vector_cor_wdist/*.csv
 results/vector_cor_wdist/*.png
